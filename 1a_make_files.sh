@@ -35,6 +35,7 @@ deb-src http://deb.debian.org/debian-security stable/updates main
 EOF"
 sudo chroot ${ROOT_FOLDER} bash -c "echo 'nameserver 8.8.8.8' > /etc/resolv.conf"
 sudo chroot ${ROOT_FOLDER} bash -c "chmod 1777 /tmp"
+sudo chroot ${ROOT_FOLDER} bash -c "chmod u+s $(which ping)"
 sudo chroot ${ROOT_FOLDER} bash -c "cat << EOF > /etc/locale.gen
 en_US.UTF-8 UTF-8
 en_HK.UTF-8 UTF-8
@@ -50,10 +51,23 @@ sudo chroot ${ROOT_FOLDER} bash -c "apt install -y linux-image-amd64 grub-efi-am
 
 sudo chroot ${ROOT_FOLDER} bash -c "apt install -y sudo"
 sudo chroot ${ROOT_FOLDER} bash -c "chown root:root /usr/bin/sudo && chmod 4755 /usr/bin/sudo"
-sudo chroot ${ROOT_FOLDER} bash -c "useradd nclab && usermod -aG sudo,netdev nclab"		# add user nclab and add it to group sudo
-sudo chroot ${ROOT_FOLDER} bash -c "sed -i 's/\/bin\/sh/\/bin\/bash/g' /etc/passwd"		# use bash as default shell
+sudo chroot ${ROOT_FOLDER} bash -c "useradd nclab && usermod -aG sudo,netdev nclab"		    # add user nclab and add it to group sudo
+sudo chroot ${ROOT_FOLDER} bash -c "sed -i 's/\/bin\/sh/\/bin\/bash/g' /etc/passwd"		    # use bash as default shell
 sudo chroot ${ROOT_FOLDER} bash -c "mkdir /home/nclab && chown nclab.nclab /home/nclab"		# create home directory for nclab
+sudo chroot ${ROOT_FOLDER} bash -c "cat << EOF >> /home/nclab/.bashrc
+# colorized ls
+export LS_OPTIONS='--color=auto'
+eval "\`dircolors\`"
+alias ls='ls \$LS_OPTIONS'
+alias ll='ls \$LS_OPTIONS -l'
+alias l='ls \$LS_OPTIONS -lA'
 
+# colorized PS1
+PS1='\${debian_chroot:+(\$debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+
+# history format
+HISTTIMEFORMAT='%Y-%m-%d %T  '
+EOF"
 
 sudo chroot ${ROOT_FOLDER} bash -c "apt install -y git man bash-completion pciutils usbutils wireless-tools iw ssh"
 sudo chroot ${ROOT_FOLDER} bash -c "systemctl enable ssh"
