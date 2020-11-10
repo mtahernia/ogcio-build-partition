@@ -10,7 +10,7 @@ for x in /dev /sys /proc; do sudo mount -o bind $x ${ROOT_FOLDER}/$x; done
 
 # Install required pakages
 sudo chroot ${ROOT_FOLDER} bash -c "apt install -y net-tools bridge-utils \
-hostapd wpasupplicant lm-sensors python-pip libnetfilter-queue-dev sshpass quagga nodejs zip npm psmisc"
+wpasupplicant lm-sensors python-pip libnetfilter-queue-dev sshpass quagga nodejs zip npm psmisc"
 
 # Install debug pakages
 sudo chroot ${ROOT_FOLDER} bash -c "apt install -y netcat telnet iperf3 speedometer \
@@ -37,6 +37,9 @@ allow-hotplug enp5s0
 iface enp5s0 inet static
     address 10.32.0.23/25
 EOF"
+
+
+sudo install -D QCA988X/* -t ${ROOT_FOLDER}/lib/firmware/ath10k/QCA988X/hw2.0/
 
 
 for x in /dev /sys /proc; do sudo umount ${ROOT_FOLDER}/$x; done

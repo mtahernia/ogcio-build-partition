@@ -10,7 +10,7 @@ RELEASE=buster
 ## Step 1: Download Linux
 
 mkdir -p ${ROOT_FOLDER}
-#sudo debootstrap ${RELEASE} ${ROOT_FOLDER} ${APT_MIRROR}
+sudo debootstrap ${RELEASE} ${ROOT_FOLDER} ${APT_MIRROR}
 
 
 ## Step 2: Configure Linux
@@ -35,7 +35,7 @@ deb-src http://deb.debian.org/debian-security stable/updates main
 EOF"
 sudo chroot ${ROOT_FOLDER} bash -c "echo 'nameserver 8.8.8.8' > /etc/resolv.conf"
 sudo chroot ${ROOT_FOLDER} bash -c "chmod 1777 /tmp"
-sudo chroot ${ROOT_FOLDER} bash -c "chmod u+s $(which ping)"
+sudo chroot ${ROOT_FOLDER} bash -c "chmod u+s /bin/ping"
 sudo chroot ${ROOT_FOLDER} bash -c "cat << EOF > /etc/locale.gen
 en_US.UTF-8 UTF-8
 en_HK.UTF-8 UTF-8
@@ -69,8 +69,9 @@ PS1='\${debian_chroot:+(\$debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033
 HISTTIMEFORMAT='%Y-%m-%d %T  '
 EOF"
 
-sudo chroot ${ROOT_FOLDER} bash -c "apt install -y git man bash-completion pciutils usbutils wireless-tools iw ssh"
+sudo chroot ${ROOT_FOLDER} bash -c "apt install -y git man bash-completion pciutils usbutils wireless-tools iw ssh hostapd"
 sudo chroot ${ROOT_FOLDER} bash -c "systemctl enable ssh"
+sudo chroot ${ROOT_FOLDER} bash -c "systemctl disable hostapd"
 
 
 # set password for nclab
