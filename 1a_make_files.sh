@@ -69,9 +69,25 @@ PS1='\${debian_chroot:+(\$debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033
 HISTTIMEFORMAT='%Y-%m-%d %T  '
 EOF"
 
+
 sudo chroot ${ROOT_FOLDER} bash -c "apt install -y git man bash-completion pciutils usbutils wireless-tools iw ssh hostapd"
 sudo chroot ${ROOT_FOLDER} bash -c "systemctl enable ssh"
 sudo chroot ${ROOT_FOLDER} bash -c "systemctl disable hostapd"
+
+
+# Install required pakages
+sudo chroot ${ROOT_FOLDER} bash -c "apt install -y net-tools bridge-utils \
+wpasupplicant lm-sensors python-pip libnetfilter-queue-dev sshpass quagga nodejs zip npm psmisc"
+
+# Install debug pakages
+sudo chroot ${ROOT_FOLDER} bash -c "apt install -y netcat telnet iperf3 speedometer \
+tcpdump tree traceroute pv"
+
+# Install dev packages packets
+#sudo chroot ${ROOT_FOLDER} bash -c "apt install -y stress parted cmake gcc g++ vim screen gdb valgrind"
+
+# Install pip packages
+sudo chroot ${ROOT_FOLDER} bash -c "pip install schedule datetime"
 
 
 # set password for nclab
