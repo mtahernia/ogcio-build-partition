@@ -20,7 +20,6 @@ last-lba: 31277194
 /dev/sdb2 : start=      206848, size=      512000, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4, uuid=7DC7E3A1-B8F9-C14C-961D-F6F6C9E7CC87
 /dev/sdb3 : start=      718848, size=     8388608, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4, uuid=DF69ABE4-E390-134C-A7A4-1C178D229FDF
 /dev/sdb4 : start=     9107456, size=     2097152, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4, uuid=41C47DEE-18DF-E947-905A-70FFA40A5A1E
-/dev/sdb5 : start=    11204608, size=     2097152, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4, uuid=284B1548-00D4-894D-B706-D1A9AF1F2CA2
 EOF
 
 
@@ -29,14 +28,12 @@ sudo mlabel -i ${DEV}1 -N 37D4A065
 sudo mkfs.ext4 ${DEV}2 -U afc9cecd-f025-4ee4-ba7d-03afbb813558 -F
 sudo mkfs.ext4 ${DEV}3 -U ebb5187a-1c90-4f0e-ae24-b313318147a3 -F
 sudo mkfs.ext4 ${DEV}4 -U b643621e-1958-4cd0-a1f2-a592f4770b4e -F
-sudo mkfs.ext4 ${DEV}5 -U 4f817645-07b3-4aca-8fe3-836d2364efe5 -F
 
 
 sudo mkdir -p /mnt          && sudo mount ${DEV}3 /mnt
 sudo mkdir -p /mnt/boot/    && sudo mount ${DEV}2 /mnt/boot
 sudo mkdir -p /mnt/boot/efi && sudo mount ${DEV}1 /mnt/boot/efi/
 sudo mkdir -p /mnt/var      && sudo mount ${DEV}4 /mnt/var
-sudo mkdir -p /mnt/home     && sudo mount ${DEV}5 /mnt/home
 sudo cp -rp ${ROOT_FOLDER}/* /mnt
 
 
@@ -51,11 +48,10 @@ UUID=37D4-A065                            /boot/efi       vfat    umask=0077    
 UUID=afc9cecd-f025-4ee4-ba7d-03afbb813558 /boot           ext4    errors=remount-ro 0       1
 UUID=ebb5187a-1c90-4f0e-ae24-b313318147a3 /               ext4    errors=remount-ro 0       1
 UUID=b643621e-1958-4cd0-a1f2-a592f4770b4e /var            ext4    errors=remount-ro 0       1
-UUID=4f817645-07b3-4aca-8fe3-836d2364efe5 /home           ext4    errors=remount-ro 0       1
 EOF"
 for x in /dev /sys /proc; do sudo umount /mnt/$x; done
 
 
-sudo umount ${DEV}1 ${DEV}2 ${DEV}4 ${DEV}5 ${DEV}3
+sudo umount ${DEV}1 ${DEV}2 ${DEV}4 ${DEV}3
 sync
 echo "Finished"
