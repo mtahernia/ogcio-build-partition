@@ -54,10 +54,11 @@ sudo chroot ${ROOT_FOLDER} bash -c "chown root:root /usr/bin/sudo && chmod 4755 
 sudo chroot ${ROOT_FOLDER} bash -c "useradd nclab && usermod -aG sudo,netdev nclab"		    # add user nclab and add it to group sudo
 sudo chroot ${ROOT_FOLDER} bash -c "sed -i 's/\/bin\/sh/\/bin\/bash/g' /etc/passwd"		    # use bash as default shell
 sudo chroot ${ROOT_FOLDER} bash -c "mkdir /home/nclab && chown nclab.nclab /home/nclab"		# create home directory for nclab
+sudo chroot ${ROOT_FOLDER} bash -c "cp -p /etc/skel/.profile /home/nclab/.bash_profile"
 sudo chroot ${ROOT_FOLDER} bash -c "cat << EOF >> /home/nclab/.bashrc
 # colorized ls
 export LS_OPTIONS='--color=auto'
-eval "\`dircolors\`"
+eval \`dircolors\`
 alias ls='ls \$LS_OPTIONS'
 alias ll='ls \$LS_OPTIONS -l'
 alias l='ls \$LS_OPTIONS -lA'
