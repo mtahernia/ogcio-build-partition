@@ -71,8 +71,8 @@ HISTTIMEFORMAT='%Y-%m-%d %T  '
 EOF"
 
 #106
+# Install fundamental packages
 sudo chroot ${ROOT_FOLDER} bash -c "apt install -y git man bash-completion pciutils usbutils ssh net-tools bridge-utils sshpass zip psmisc wget"
-sudo chroot ${ROOT_FOLDER} bash -c "systemctl enable ssh"
 
 #117
 # Install required pakages
@@ -81,7 +81,7 @@ sudo chroot ${ROOT_FOLDER} bash -c "systemctl disable hostapd"
 
 #164
 # Install debug pakages
-sudo chroot ${ROOT_FOLDER} bash -c "apt install -y netcat telnet iperf3 speedometer tcpdump tree traceroute pv"
+sudo chroot ${ROOT_FOLDER} bash -c "apt install -y netcat telnet iperf3 speedometer tcpdump tree traceroute pv nmap"
 
 # Install dev packages packets
 #sudo chroot ${ROOT_FOLDER} bash -c "apt install -y stress parted cmake gcc g++ vim screen gdb valgrind"
