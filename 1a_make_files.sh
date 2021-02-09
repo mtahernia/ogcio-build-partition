@@ -70,6 +70,14 @@ sudo chroot ${ROOT_FOLDER} bash -c "cat << EOF >> /home/nclab/.bashrc
 HISTTIMEFORMAT='%Y-%m-%d %T  '
 EOF"
 
+sudo chroot ${ROOT_FOLDER} bash -c "cat << EOF >> /etc/network/interfaces
+
+allow-hotplug enp5s0
+iface enp5s0 inet static
+    address 10.32.0.23/25
+EOF"
+
+
 #106
 # Install fundamental packages
 sudo chroot ${ROOT_FOLDER} bash -c "apt install -y git man bash-completion pciutils usbutils ssh net-tools bridge-utils sshpass zip psmisc wget"
