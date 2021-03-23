@@ -76,7 +76,7 @@ sudo chroot ${ROOT_FOLDER} bash -c "apt install -y git man bash-completion pciut
 
 #117
 # Install required pakages
-sudo chroot ${ROOT_FOLDER} bash -c "apt install -y wireless-tools iw wpasupplicant hostapd lm-sensors python-pip libnetfilter-queue-dev quagga nodejs npm"
+sudo chroot ${ROOT_FOLDER} bash -c "apt install -y wireless-tools iw wpasupplicant hostapd lm-sensors python-pip libnetfilter-queue-dev quagga nodejs npm haveged"
 sudo chroot ${ROOT_FOLDER} bash -c "systemctl disable hostapd"
 
 #164
