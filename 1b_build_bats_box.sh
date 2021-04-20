@@ -7,6 +7,7 @@ ROOT_FOLDER=image
 
 for x in /dev /sys /proc; do sudo mount -o bind $x ${ROOT_FOLDER}/$x; done
 
+sudo chroot ${ROOT_FOLDER} bash -c "echo 1.0.0 > /home/nclab/version"
 
 sudo cp *.deb ${ROOT_FOLDER}/
 sudo chroot ${ROOT_FOLDER} bash -c "dpkg -i box.deb"
