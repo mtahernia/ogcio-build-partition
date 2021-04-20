@@ -35,7 +35,7 @@ deb-src http://deb.debian.org/debian-security stable/updates main
 EOF"
 sudo chroot ${ROOT_FOLDER} bash -c "echo 'nameserver 8.8.8.8' > /etc/resolv.conf"
 #sudo chroot ${ROOT_FOLDER} bash -c "chmod 1777 /tmp"
-#sudo chroot ${ROOT_FOLDER} bash -c "chmod u+s /bin/ping"
+sudo chroot ${ROOT_FOLDER} bash -c "chmod u+s /bin/ping"
 # sudo chroot ${ROOT_FOLDER} bash -c "cat << EOF > /etc/locale.gen
 # en_US.UTF-8 UTF-8
 # en_HK.UTF-8 UTF-8
@@ -77,6 +77,10 @@ iface enp5s0 inet static
     address 10.32.0.23/25
 EOF"
 
+sudo chroot ${ROOT_FOLDER} bash -c "sed -i 's/quiet/quiet intel_iommu=on/g' /etc/default/grub"
+
+# Install qemu packages
+sudo chroot ${ROOT_FOLDER} bash -c "apt install -y qemu-system-x86 qemu-kvm"
 
 #106
 # Install fundamental packages
