@@ -1,8 +1,13 @@
 #!/bin/bash
 
+if [ $# -le 0 ]; then
+        echo "Usage:    ./1c_ospf.sh image_folder";
+        exit 0
+fi
+
 set -ex
 
-ROOT_FOLDER=image
+ROOT_FOLDER=$1
 
 
 for x in /dev /sys /proc; do sudo mount -o bind $x ${ROOT_FOLDER}/$x; done

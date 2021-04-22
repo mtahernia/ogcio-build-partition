@@ -1,9 +1,14 @@
 #!/bin/bash
 
+if [ $# -le 1 ]; then
+        echo "Usage:    ./2_part_disk.sh image_folder device";
+        exit 0
+fi
+
 set -ex
 
-ROOT_FOLDER=image
-DEV=/dev/sdb
+ROOT_FOLDER=$1
+DEV=$2
 
 
 ## Step 3: Partition disk and copy files

@@ -1,8 +1,13 @@
 #!/bin/bash
 
+if [ $# -le 0 ]; then
+        echo "Usage:    ./1a_make_files.sh image_folder";
+        exit 0
+fi
+
 set -ex
 
-ROOT_FOLDER=image
+ROOT_FOLDER=$1
 APT_MIRROR=https://deb.debian.org/debian
 RELEASE=buster
 
