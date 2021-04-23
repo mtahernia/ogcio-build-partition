@@ -12,12 +12,18 @@ ROOT_FOLDER=$1
 
 for x in /dev /sys /proc; do sudo mount -o bind $x ${ROOT_FOLDER}/$x; done
 
-sudo chroot ${ROOT_FOLDER} bash -c "echo 1.0.0 > /home/nclab/version"
+cp -p *.deb ${ROOT_FOLDER}/home/nclab/
+sudo chroot ${ROOT_FOLDER} bash -c "dpkg -i /home/nclab/box.deb"
+sudo chroot ${ROOT_FOLDER} bash -c "dpkg -i /home/nclab/bats-code-*.deb"
+sudo chroot ${ROOT_FOLDER} bash -c "dpkg -i /home/nclab/fsm-*.deb"
 
-sudo cp *.deb ${ROOT_FOLDER}/
-sudo chroot ${ROOT_FOLDER} bash -c "dpkg -i box.deb"
-sudo chroot ${ROOT_FOLDER} bash -c "dpkg -i bats-code-*.deb"
-sudo chroot ${ROOT_FOLDER} bash -c "dpkg -i fsm-*.deb"
+# update nodejs to v12
+sudo chroot ${ROOT_FOLDER} bash -c "apt update && apt install -y curl"
+sudo chroot ${ROOT_FOLDER} bash -c "apt purge -y nodejs"
+sudo chroot ${ROOT_FOLDER} bash -c "curl -sL https://deb.nodesource.com/setup_12.x | bash -"
+sudo chroot ${ROOT_FOLDER} bash -c "apt install -y nodejs"
+sudo chroot ${ROOT_FOLDER} bash -c "npm i -g npm@latest"
+
 # Edit setup.sh if needed
 sudo chroot ${ROOT_FOLDER} bash -c "/home/nclab/setup.sh"
 
