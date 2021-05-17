@@ -18,7 +18,6 @@ sudo chroot ${ROOT_FOLDER} bash -c "/home/nclab/watchdog-vm/host/setup.sh"
 
 cp -rp qemu/ ${ROOT_FOLDER}/home/nclab/
 sudo chroot ${ROOT_FOLDER} bash -c "/home/nclab/qemu/setup.sh"
-sudo chroot ${ROOT_FOLDER} bash -c "echo net.ipv4.ping_group_range='0 0' >> /etc/sysctl.conf"
 
 
 for x in /dev /sys /proc; do sudo umount ${ROOT_FOLDER}/$x; done
