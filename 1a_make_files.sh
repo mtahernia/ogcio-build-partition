@@ -93,7 +93,7 @@ sudo chroot ${ROOT_FOLDER} bash -c "apt install -y git man bash-completion pciut
 
 #117
 # Install required pakages
-sudo chroot ${ROOT_FOLDER} bash -c "apt install -y wireless-tools iw wpasupplicant hostapd lm-sensors python-pip libnetfilter-queue-dev quagga nodejs npm haveged"
+sudo chroot ${ROOT_FOLDER} bash -c "apt install -y wireless-tools iw wpasupplicant hostapd lm-sensors python-pip libnetfilter-queue-dev quagga npm haveged"
 sudo chroot ${ROOT_FOLDER} bash -c "systemctl disable hostapd"
 
 #164
@@ -107,6 +107,8 @@ sudo chroot ${ROOT_FOLDER} bash -c "apt install -y netcat telnet iperf3 speedome
 # Install pip packages
 sudo chroot ${ROOT_FOLDER} bash -c "pip install schedule datetime"
 
+# Clean up
+sudo chroot ${ROOT_FOLDER} bash -c "apt autoremove && apt autoremove -y"
 
 # set password for nclab
 sudo chroot ${ROOT_FOLDER} bash -c "passwd nclab"
