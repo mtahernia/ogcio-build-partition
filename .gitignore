@@ -2,3 +2,4 @@
 build/
 image*/
 qemu/
+vm-qemu/

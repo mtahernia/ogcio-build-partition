@@ -29,14 +29,19 @@ sudo chroot ${ROOT_FOLDER} bash -c "cat << EOF > /etc/apt/sources.list
 #------------------------------------------------------------------------------#
 
 ###### Debian Main Repos
-deb http://deb.debian.org/debian/ stable main contrib non-free
-deb-src http://deb.debian.org/debian/ stable main contrib non-free
+#deb http://deb.debian.org/debian/ stable main contrib non-free
+#deb-src http://deb.debian.org/debian/ stable main contrib non-free
+deb http://deb.debian.org/debian buster main contrib non-free
+deb-src http://deb.debian.org/debian buster main contrib non-free
+
 
 #deb http://deb.debian.org/debian/ stable-updates main contrib non-free
 #deb-src http://deb.debian.org/debian/ stable-updates main contrib non-free
 
-deb http://deb.debian.org/debian-security stable/updates main
-deb-src http://deb.debian.org/debian-security stable/updates main
+#deb http://deb.debian.org/debian-security stable/updates main
+#deb-src http://deb.debian.org/debian-security stable/updates main
+deb http://security.debian.org/debian-security/ buster/updates main
+deb-src http://security.debian.org/debian-security/ buster/updates main
 EOF"
 sudo chroot ${ROOT_FOLDER} bash -c "echo 'nameserver 8.8.8.8' > /etc/resolv.conf"
 #sudo chroot ${ROOT_FOLDER} bash -c "chmod 1777 /tmp"
@@ -89,16 +94,16 @@ sudo chroot ${ROOT_FOLDER} bash -c "apt install -y qemu-system-x86 qemu-kvm"
 
 #106
 # Install fundamental packages
-sudo chroot ${ROOT_FOLDER} bash -c "apt install -y git man bash-completion pciutils usbutils ssh net-tools bridge-utils sshpass zip psmisc wget ntpdate"
+sudo chroot ${ROOT_FOLDER} bash -c "apt install -y git man bash-completion pciutils usbutils ssh net-tools bridge-utils sshpass zip psmisc wget ntpdate vim"
 
 #117
 # Install required pakages
-sudo chroot ${ROOT_FOLDER} bash -c "apt install -y wireless-tools iw wpasupplicant hostapd lm-sensors python-pip libnetfilter-queue-dev quagga npm haveged"
+sudo chroot ${ROOT_FOLDER} bash -c "apt install -y wireless-tools iw wpasupplicant hostapd lm-sensors python-pip libnetfilter-queue-dev quagga npm haveged doxygen"
 sudo chroot ${ROOT_FOLDER} bash -c "systemctl disable hostapd"
 
 #164
 # Install debug pakages
-sudo chroot ${ROOT_FOLDER} bash -c "apt install -y netcat telnet iperf3 speedometer tcpdump tree traceroute pv nmap"
+sudo chroot ${ROOT_FOLDER} bash -c "apt install -y netcat telnet iperf3 speedometer tcpdump tree traceroute pv nmap nload"
 
 # Install dev packages packets
 #sudo chroot ${ROOT_FOLDER} bash -c "apt install -y stress parted cmake gcc g++ vim screen gdb valgrind"
