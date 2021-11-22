@@ -13,9 +13,11 @@ ROOT_FOLDER=$1
 for x in /dev /sys /proc; do sudo mount -o bind $x ${ROOT_FOLDER}/$x; done
 
 cp -p *.deb ${ROOT_FOLDER}/home/nclab/
-sudo chroot ${ROOT_FOLDER} bash -c "dpkg -i /home/nclab/box.deb"
+sudo chroot ${ROOT_FOLDER} bash -c "dpkg -i /home/nclab/box-*.deb"
 sudo chroot ${ROOT_FOLDER} bash -c "dpkg -i /home/nclab/bats-code-*.deb"
 sudo chroot ${ROOT_FOLDER} bash -c "dpkg -i /home/nclab/fsm-*.deb"
+# remove package after installed
+mv -p *.deb ${ROOT_FOLDER}/home/nclab/
 
 # update nodejs to v12
 sudo chroot ${ROOT_FOLDER} bash -c "apt update && apt install -y curl"

@@ -94,7 +94,7 @@ sudo chroot ${ROOT_FOLDER} bash -c "apt install -y qemu-system-x86 qemu-kvm"
 
 #106
 # Install fundamental packages
-sudo chroot ${ROOT_FOLDER} bash -c "apt install -y git man bash-completion pciutils usbutils ssh net-tools bridge-utils sshpass zip psmisc wget ntpdate"
+sudo chroot ${ROOT_FOLDER} bash -c "apt install -y git man bash-completion pciutils usbutils ssh net-tools bridge-utils sshpass zip psmisc wget ntpdate vim"
 
 #117
 # Install required pakages
